@@ -2,21 +2,19 @@
 #include <PubSubClient.h>
 
 
-#define LED_ROJO 23     
-#define DHTPIN 22        
+#define LED_ROJO 23          
 #define LED_VERDE 21     
-#define LED_AZUL 19 
-
 
 #define LM35_PIN 34
 
+// Credenciales de la red WiFi
 const char* ssid = "";     
 const char* password = "";   
 
 const char* mqtt_server = "thingsboard.cloud"; 
 const int mqtt_port = 1883;
 
-
+// Token de acceso del dispositivo ThingsBoard
 const char* mqtt_user = ""; 
 const char* mqtt_pass = ""; 
 
@@ -67,7 +65,7 @@ void reconnect() {
     
 
     if (client.connect(clientId.c_str(), mqtt_user, mqtt_pass)) {
-      Serial.println(" ¡Conectado!");
+      Serial.println(" Conectado");
       client.subscribe(topic_sub);
     } else {
       Serial.print(" fallo rc=");
@@ -84,7 +82,6 @@ void setup() {
 
   pinMode(LED_ROJO, OUTPUT);
   pinMode(LED_VERDE, OUTPUT);
-  pinMode(LED_AZUL, OUTPUT);
 
   setup_wifi();
   client.setServer(mqtt_server, 1883);
@@ -115,7 +112,6 @@ void loop() {
 
     digitalWrite(LED_VERDE, LOW);
     digitalWrite(LED_ROJO, LOW);
-    digitalWrite(LED_AZUL, LOW); 
 
     if (t >= 20.0 && t <= 28.0) {
         digitalWrite(LED_VERDE, HIGH);
